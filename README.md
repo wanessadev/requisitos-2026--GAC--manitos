@@ -25,3 +25,8 @@ O desenvolvimento foi planejado em sprints para garantir um MVP (Minimum Viable 
 Sprint 01: Inventário de ativos e identificação de stakeholders.
 Sprint 02: Fluxo de empréstimo mobile e formalização digital.
 Sprint 03: Checklist de devolução e painel gerencial de rastreamento.
+
+## 🛠️ Tecnologias e Ferramentas
+Modelagem: Lucidchart / Draw.io.
+Prototipagem: Figma.
+Documentação: Padrão IEEE 830.
