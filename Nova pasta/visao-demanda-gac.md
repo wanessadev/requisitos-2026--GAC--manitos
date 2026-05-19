@@ -426,5 +426,3 @@ journey
 - [x] O documento está escrito em linguagem clara e objetiva?
 
 ---
-
-> Consulte exemplos e dicas em: [Guia de Elaboração da Visão](../../../Elicitacao/VisaoDemanda.md)
