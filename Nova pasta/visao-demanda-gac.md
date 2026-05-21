@@ -6,6 +6,7 @@
 | ---------- | ------- | -------------------------------------------------------------------------------------------------- | ------------- |
 | 11/05/2026 | 1.0     | Criação do documento de visão da demanda do Projeto GAC com base na elicitação, entrevistas, observação dos formulários e análise do controle atual de ativos do CCT. | Grupo Manitos |
 | 21/05/2026 | 1.1     | Atualização do diagrama de caso de uso e ajuste de responsabilidades entre professor e atendente. | Grupo Manitos |
+| 21/05/2026 | 1.2     | Inclusão do caso de uso Cadastrar Dados para o Professor. | Grupo Manitos |
 |            |         |                                                                                                    |               |
 |            |         |                                                                                                    |               |
 
@@ -108,6 +109,16 @@ A elicitação foi realizada por meio de:
 - **Incluída**
 - **Atores:** Atendente do CCT, Coordenação do CCT
 - **Frequência:** Alta
+- **Valor:** Alto
+
+### Necessidade 1.1: Cadastro de dados do professor
+
+#### F1.4 Cadastrar dados do professor
+
+- **Descrição:** permite que o professor cadastre ou atualize seus dados básicos antes de solicitar um ativo, como nome, matrícula, setor e contato institucional.
+- **Incluída**
+- **Atores:** Professor
+- **Frequência:** Média
 - **Valor:** Alto
 
 ### Necessidade 2: Empréstimo e termo de responsabilidade
@@ -264,37 +275,39 @@ flowchart LR
   C(["Coordenação do CCT"])
 
   subgraph GAC["Sistema GAC - Gestão de Ativos do CCT"]
-    UC1(["Solicitar Ativo"])
-    UC2(["Validar Patrimônio e Acessórios"])
-    UC3(["Assinar Termo de Responsabilidade"])
-    UC4(["Registrar Empréstimo"])
-    UC5(["Registrar Devolução"])
-    UC6(["Executar Checklist de Devolução"])
-    UC7(["Registrar Permutação"])
-    UC8(["Registrar Ocorrência"])
-    UC9(["Atualizar Inventário"])
-    UC10(["Consultar Dashboard"])
-    UC11(["Gerar Relatórios"])
-    UC12(["Registrar Manutenção"])
+    UC1(["Cadastrar Dados"])
+    UC2(["Solicitar Ativo"])
+    UC3(["Validar Patrimônio e Acessórios"])
+    UC4(["Assinar Termo de Responsabilidade"])
+    UC5(["Registrar Empréstimo"])
+    UC6(["Registrar Devolução"])
+    UC7(["Executar Checklist de Devolução"])
+    UC8(["Registrar Permutação"])
+    UC9(["Registrar Ocorrência"])
+    UC10(["Atualizar Inventário"])
+    UC11(["Consultar Dashboard"])
+    UC12(["Gerar Relatórios"])
+    UC13(["Registrar Manutenção"])
   end
 
   P --> UC1
-  P --> UC7
-  A --> UC2
-  A --> UC4
+  P --> UC2
+  P --> UC8
+  A --> UC3
   A --> UC5
   A --> UC6
-  A --> UC8
+  A --> UC7
   A --> UC9
-  A --> UC12
-  C --> UC10
+  A --> UC10
+  A --> UC13
   C --> UC11
-  C --> UC8
+  C --> UC12
+  C --> UC9
 
-  UC1 -. inclui .-> UC3
-  UC4 -. inclui .-> UC2
-  UC5 -. inclui .-> UC6
-  UC12 -. atualiza .-> UC9
+  UC2 -. inclui .-> UC4
+  UC5 -. inclui .-> UC3
+  UC6 -. inclui .-> UC7
+  UC13 -. atualiza .-> UC10
 ```
 
 ### 7.3. Diagrama de Classes Inicial
@@ -389,6 +402,7 @@ sequenceDiagram
 journey
     title Mapa de Histórias de Usuário — Projeto GAC
     section Professor
+      Cadastrar dados: 4
       Solicitar ativo: 5
       Registrar permutação: 3
     section Atendente do CCT
