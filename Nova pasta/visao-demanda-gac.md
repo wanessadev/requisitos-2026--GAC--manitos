@@ -7,6 +7,7 @@
 | 11/05/2026 | 1.0     | Criação do documento de visão da demanda do Projeto GAC com base na elicitação, entrevistas, observação dos formulários e análise do controle atual de ativos do CCT. | Grupo Manitos |
 | 21/05/2026 | 1.1     | Atualização do diagrama de caso de uso e ajuste de responsabilidades entre professor e atendente. | Grupo Manitos |
 | 21/05/2026 | 1.2     | Inclusão do caso de uso Cadastrar Dados para o Professor. | Grupo Manitos |
+| 21/05/2026 | 1.3     | Alteração do caso de uso Solicitar Ativo para Retirar Ativo e remoção do caso de uso Registrar Empréstimo. | Grupo Manitos |
 |            |         |                                                                                                    |               |
 |            |         |                                                                                                    |               |
 
@@ -123,9 +124,9 @@ A elicitação foi realizada por meio de:
 
 ### Necessidade 2: Empréstimo e termo de responsabilidade
 
-#### F2.1 Solicitação ou registro de empréstimo
+#### F2.1 Retirada de ativo
 
-- **Descrição:** permite registrar a saída de um ativo vinculado a professor, sala, bloco, turno, data e horário.
+- **Descrição:** permite registrar a retirada de um ativo vinculado a professor, sala, bloco, turno, data e horário.
 - **Incluída**
 - **Atores:** Professor, Atendente do CCT
 - **Frequência:** Alta
@@ -158,14 +159,6 @@ A elicitação foi realizada por meio de:
 - **Valor:** Alto
 
 #### F3.2 Bloqueio de devolução incompleta
-
-- **Descrição:** exige conferência de cabo HDMI, fonte, adaptador, estado físico e identificação numérica dos acessórios.
-- **Incluída**
-- **Atores:** Atendente do CCT
-- **Frequência:** Alta
-- **Valor:** Alto
-
-#### F3.3 Bloqueio de devolução incompleta
 
 - **Descrição:** impede a conclusão da devolução quando acessórios obrigatórios estiverem ausentes, divergentes ou danificados.
 - **Incluída**
@@ -259,9 +252,9 @@ O sistema será composto por módulos de inventário, empréstimo, devolução, 
 
 - **Inventário de ativos:** cadastro e consulta de projetores, cabos, adaptadores, fontes e chaves.
 - **Identificação digital:** leitura por QR Code ou NFC para validação rápida do patrimônio.
-- **Empréstimo:** registro de saída do ativo vinculado ao professor e à sala.
+- **Retirada de ativo:** registro de saída do ativo vinculado ao professor e à sala.
 - **Termo de responsabilidade:** aceite digital com data, hora e responsável.
-- **Devolução:** solicitação de devolução pelo professor, seguida de baixa do ativo e conferência por checklist pelo atendente.
+- **Devolução:** baixa do ativo e conferência por checklist pelo atendente.
 - **Permutação:** transferência formal de responsabilidade em caso de troca de sala ou equipamento.
 - **Manutenção:** registro de defeitos e indisponibilidade temporária.
 - **Relatórios e dashboard:** acompanhamento de uso, localização, pendências e auditoria.
@@ -276,38 +269,36 @@ flowchart LR
 
   subgraph GAC["Sistema GAC - Gestão de Ativos do CCT"]
     UC1(["Cadastrar Dados"])
-    UC2(["Solicitar Ativo"])
-    UC3(["Validar Patrimônio e Acessórios"])
-    UC4(["Assinar Termo de Responsabilidade"])
-    UC5(["Registrar Empréstimo"])
-    UC6(["Registrar Devolução"])
-    UC7(["Executar Checklist de Devolução"])
-    UC8(["Registrar Permutação"])
-    UC9(["Registrar Ocorrência"])
-    UC10(["Atualizar Inventário"])
-    UC11(["Consultar Dashboard"])
-    UC12(["Gerar Relatórios"])
-    UC13(["Registrar Manutenção"])
+    UC2(["Retirar Ativo"])
+    UC3(["Assinar Termo de Responsabilidade"])
+    UC4(["Validar Patrimônio e Acessórios"])
+    UC5(["Registrar Devolução"])
+    UC6(["Executar Checklist de Devolução"])
+    UC7(["Registrar Permutação"])
+    UC8(["Registrar Ocorrência"])
+    UC9(["Atualizar Inventário"])
+    UC10(["Consultar Dashboard"])
+    UC11(["Gerar Relatórios"])
+    UC12(["Registrar Manutenção"])
   end
 
   P --> UC1
   P --> UC2
-  P --> UC8
-  A --> UC3
+  P --> UC7
+  A --> UC4
   A --> UC5
   A --> UC6
-  A --> UC7
+  A --> UC8
   A --> UC9
-  A --> UC10
-  A --> UC13
+  A --> UC12
+  C --> UC10
   C --> UC11
-  C --> UC12
-  C --> UC9
+  C --> UC8
 
+  UC2 -. inclui .-> UC3
   UC2 -. inclui .-> UC4
-  UC5 -. inclui .-> UC3
-  UC6 -. inclui .-> UC7
-  UC13 -. atualiza .-> UC10
+  UC5 -. inclui .-> UC6
+  UC12 -. atualiza .-> UC9
 ```
 
 ### 7.3. Diagrama de Classes Inicial
@@ -383,7 +374,7 @@ sequenceDiagram
   participant LeitorQR as QR/NFC Scanner
   participant Inventario
 
-  Professor->>Sistema: Solicitar ativo
+  Professor->>Sistema: Retirar ativo
   Sistema->>Atendente: Solicitar validação
   Atendente->>LeitorQR: Escanear código do ativo
   LeitorQR->>Inventario: Consultar dados do ativo
@@ -391,7 +382,7 @@ sequenceDiagram
   Sistema-->>Atendente: Confirmar validação
   Sistema->>Professor: Gerar termo de responsabilidade
   Professor->>Sistema: Assinar digitalmente
-  Sistema->>Inventario: Registrar empréstimo
+  Sistema->>Inventario: Registrar retirada
   Inventario-->>Sistema: Inventário atualizado
   Sistema-->>Professor: Ativo liberado
 ```
@@ -403,11 +394,10 @@ journey
     title Mapa de Histórias de Usuário — Projeto GAC
     section Professor
       Cadastrar dados: 4
-      Solicitar ativo: 5
+      Retirar ativo: 5
       Registrar permutação: 3
     section Atendente do CCT
       Validar patrimônio por QR/NFC: 5
-      Registrar empréstimo: 5
       Registrar devolução: 5
       Conferir checklist de devolução: 5
       Registrar ocorrência: 4
