@@ -1,110 +1,286 @@
-# CDU07 — Executar Checklist de Devolução
+# Especificação de Requisitos Funcionais
 
-## 1. Nome do caso de uso
+## Caso de Uso (CDU) - GAC
+
+---
+
+## Histórico de Versões
+
+| Data       | Versão | Descrição | Autor |
+|------------|--------|-----------|-------|
+| 30/05/2026 | 2.0 | Reestruturação do caso de uso no padrão do template de especificação de CDU | Grupo Manitos |
+
+---
+
+# 1. Nome do Caso de Uso
 
 **Executar Checklist de Devolução**
 
-## 2. Objetivo
+---
 
-Permitir que o Atendente do CCT confira se o ativo devolvido está em boas condições e acompanhado dos acessórios esperados.
+# 2. Objetivo
 
-## 3. Classificação
+Permitir que o Atendente do CCT confira se o ativo devolvido está em boas condições e acompanhado dos acessórios esperados, registrando o resultado da conferência no Sistema GAC.
 
-**Concreto reutilizável**, pois pode ser iniciado diretamente pelo Atendente do CCT ou incluído por **Registrar Devolução**.
+---
 
-## 4. Atores
+# 3. Tipo de Caso de Uso
 
-| Ator | Classificação | Participação |
-|---|---|---|
-| Atendente do CCT | Primário | Executa a conferência |
-| Sistema GAC | Secundário | Apresenta itens esperados e registra resultado |
+| Tipo do Caso de Uso | Justificativa |
+| --- | --- |
+| Concreto reutilizável | Pode ser iniciado diretamente ou reutilizado por Registrar Devolução. |
 
-## 5. Pré-condições
+---
 
-- O ativo deve estar em processo de devolução.
-- O sistema deve possuir a lista de acessórios vinculados ao ativo.
-- O Atendente do CCT deve ter acesso ao ativo físico.
+# 4. Atores
 
-## 6. Fluxo principal
+## 4.1 Primário
 
-**P1.** O Atendente do CCT seleciona a opção **Executar Checklist de Devolução**.
+| Ator | Descrição |
+| --- | --- |
+| Atendente do CCT | Executa a conferência física do ativo e dos acessórios. |
 
-**P2.** O sistema apresenta os itens esperados para devolução.
+## 4.2 Secundário
 
-**P3.** O sistema apresenta campos para conferência de equipamento, cabo HDMI, fonte, adaptador, identificação numérica dos acessórios e estado físico.
+| Ator | Descrição |
+| --- | --- |
+| Sistema GAC | Apresenta itens esperados e registra resultado do checklist. |
+| Professor | Entrega o ativo e seus acessórios. |
 
-**P4.** O Atendente do CCT confere cada item físico.
+---
 
-**P5.** O Atendente do CCT marca os itens como **Conforme**.
+# 5. Precondições
 
-**P6.** O sistema valida se todos os itens obrigatórios foram marcados. **[E1]**
+| Código | Descrição |
+| --- | --- |
+| PRE01 | O ativo deve estar em processo de devolução. |
+| PRE02 | O sistema deve possuir a lista de acessórios vinculados ao ativo. |
+| PRE03 | O Atendente do CCT deve ter acesso ao ativo físico. |
+| PRE04 | O Atendente do CCT deve possuir permissão para executar checklist. |
 
-**P7.** O sistema registra o checklist como concluído.
+---
 
-**P8.** O sistema apresenta a mensagem: **IN06 — Checklist concluído com sucesso.**
+# 6. Fluxo Principal
 
-**P9.** O sistema retorna ao caso de uso chamador.
+## P1. Acessar checklist
 
-## 7. Fluxos alternativos
+### P1.1.
+O Atendente do CCT seleciona a opção **Executar Checklist de Devolução**.
 
-### A1 — Item devolvido com dano
+### P1.2.
+O sistema apresenta os itens esperados para devolução.
 
-**A1.1.** No passo **P5**, o Atendente do CCT marca um item como **Danificado**.
+## P2. Apresentar itens de conferência
 
-**A1.2.** O sistema solicita descrição do dano.
+### P2.1.
+O sistema apresenta campos para conferência do equipamento, cabo HDMI, fonte, adaptador, identificação numérica dos acessórios e estado físico.
 
-**A1.3.** O Atendente do CCT informa a descrição.
+### P2.2.
+O sistema destaca os itens obrigatórios.
 
-**A1.4.** O sistema inclui o caso de uso **Registrar Ocorrência**.
+## P3. Conferir itens
 
-**A1.5.** O sistema registra o checklist como **Concluído com Pendência**.
+### P3.1.
+O Atendente do CCT confere cada item físico.
 
-**A1.6.** O sistema retorna ao caso de uso chamador.
+### P3.2.
+O Atendente do CCT marca os itens como **Conforme**. **[A1] [A2]**
 
-### A2 — Item ausente ou divergente
+## P4. Validar checklist
 
-**A2.1.** No passo **P5**, o Atendente do CCT marca um item como **Ausente** ou **Divergente**.
+### P4.1.
+O sistema valida se todos os itens obrigatórios foram marcados. **[E1]**
 
-**A2.2.** O sistema solicita justificativa.
+## P5. Registrar checklist
 
-**A2.3.** O Atendente do CCT informa a justificativa.
+### P5.1.
+O sistema registra o checklist como concluído.
 
-**A2.4.** O sistema inclui o caso de uso **Registrar Ocorrência**.
+### P5.2.
+O sistema apresenta a mensagem **MSG021 - Checklist concluído com sucesso**.
 
-**A2.5.** O sistema registra o checklist como **Concluído com Pendência**.
+### P5.3.
+O sistema retorna ao caso de uso chamador.
 
-**A2.6.** O sistema retorna ao caso de uso chamador.
 
-## 8. Fluxos de exceção
+---
 
-### E1 — Checklist incompleto
+# 7. Fluxos Alternativos
 
-**E1.1.** No passo **P6**, o sistema identifica item obrigatório sem conferência.
+## A1. Item devolvido com dano
 
-**E1.2.** O sistema apresenta a mensagem: **ER14 — Todos os itens obrigatórios devem ser conferidos.**
+### A1.1.
+No passo **P3.2**, o Atendente do CCT marca um item como **Danificado**.
 
-**E1.3.** O sistema retorna ao passo **P3**.
+### A1.2.
+O sistema solicita descrição do dano.
 
-## 9. Pós-condições
+### A1.3.
+O Atendente do CCT informa a descrição.
 
-- O checklist fica registrado.
-- O resultado da conferência fica vinculado à devolução.
-- Pendências geram ocorrência.
-- Devolução incompleta pode ser bloqueada ou registrada com pendência, conforme regra definida.
+### A1.4.
+O sistema inclui o caso de uso **CDU08 - Registrar Ocorrência**.
 
-## 10. Requisitos não funcionais aplicáveis
+### A1.5.
+O sistema registra o checklist como **Concluído com Pendência**.
 
-- A tela de checklist deve ser objetiva.
-- O sistema deve destacar itens obrigatórios.
-- O checklist deve ser auditável.
+### A1.6.
+O sistema retorna ao caso de uso chamador.
 
-## 11. Pontos de inclusão
 
-| Ponto | Caso relacionado |
-|---|---|
-| P1 | Pode ser incluído por **Registrar Devolução** |
-| A1.4 / A2.4 | Inclui **Registrar Ocorrência** |
+## A2. Item ausente ou divergente
 
-## 12. Frequência
+### A2.1.
+No passo **P3.2**, o Atendente do CCT marca um item como **Ausente** ou **Divergente**.
 
-**Alta**, pois deve ocorrer em cada devolução de ativo.
+### A2.2.
+O sistema solicita justificativa.
+
+### A2.3.
+O Atendente do CCT informa a justificativa.
+
+### A2.4.
+O sistema inclui o caso de uso **CDU08 - Registrar Ocorrência**.
+
+### A2.5.
+O sistema registra o checklist como **Concluído com Pendência**.
+
+### A2.6.
+O sistema retorna ao caso de uso chamador.
+
+
+---
+
+# 8. Fluxos de Exceção
+
+## E1. Checklist incompleto
+
+### E1.1.
+No passo **P4.1**, o sistema identifica item obrigatório sem conferência.
+
+### E1.2.
+O sistema apresenta a mensagem **MSG022 - Todos os itens obrigatórios devem ser conferidos**.
+
+### E1.3.
+O fluxo retorna ao passo **P2.1**.
+
+
+---
+
+# 9. Pós-condições
+
+| Código | Descrição |
+| --- | --- |
+| POS01 | O checklist fica registrado. |
+| POS02 | O resultado da conferência fica vinculado à devolução. |
+| POS03 | Pendências geram ocorrência. |
+| POS04 | Devolução incompleta pode ser bloqueada ou registrada com pendência. |
+
+---
+
+# 10. Requisitos Não Funcionais
+
+| Código | Requisito |
+| --- | --- |
+| RNF01 | A tela de checklist deve ser objetiva e permitir marcação rápida. |
+| RNF02 | O sistema deve destacar itens obrigatórios. |
+| RNF03 | O checklist deve ser auditável. |
+| RNF04 | O checklist deve funcionar em desktop, tablet ou totem. |
+
+---
+
+# 11. Ponto de Extensão
+
+## PE1. Registrar Ocorrência
+
+Permite registrar dano, ausência ou divergência identificada durante a conferência.
+
+---
+
+# 12. Frequência de Utilização
+
+| Item | Informação |
+| --- | --- |
+| Frequência | Alta |
+| Perfil de Uso | Utilizado em cada devolução de ativo |
+| Informações mais acessadas | Equipamento, acessórios, estado físico e pendências |
+
+---
+
+# 13. Interface Visual
+
+## IV1. Tela de checklist de devolução
+
+Tela usada para conferência dos itens devolvidos.
+
+| Campo | Tipo/Formato | Obrigatório | Descrição | Regra de Negócio |
+| --- | --- | --- | --- | --- |
+| Patrimônio | Texto | Sim | Identificação do ativo | Obtido da devolução |
+| Cabo HDMI | Checkbox/Status | Condicional | Confirma devolução do cabo | Obrigatório quando vinculado |
+| Fonte | Checkbox/Status | Condicional | Confirma devolução da fonte | Obrigatória quando vinculada |
+| Adaptador | Checkbox/Status | Condicional | Confirma devolução do adaptador | Obrigatório quando vinculado |
+| Estado físico | Lista | Sim | Condição do ativo | Conforme, danificado ou pendente |
+| Observações | Texto longo | Condicional | Descrição de pendências | Obrigatória quando houver dano/divergência |
+| Botão “Concluir Checklist” | Botão | Sim | Registra conferência | Habilitado após itens obrigatórios |
+
+---
+
+# 14. Observações
+
+| Código | Observação |
+| --- | --- |
+| OBS01 | Os itens do checklist podem variar conforme tipo de ativo. |
+| OBS02 | O sistema poderá permitir anexar fotos de avarias em versão futura. |
+
+---
+
+# 15. Referências
+
+| Código | Referência |
+| --- | --- |
+| REF01 | Documento de Visão da Demanda do Projeto GAC |
+| REF02 | Glossário do Projeto GAC |
+| REF03 | Template de Especificação de Caso de Uso |
+| REF04 | CDU06 - Registrar Devolução |
+| REF05 | CDU08 - Registrar Ocorrência |
+
+---
+
+# 16. Checklist de Validação do Artefato (CDU)
+
+## 16.1 Estrutura mínima
+
+- [x] Nome do caso de uso iniciado com verbo no infinitivo.
+- [x] Objetivo claro, direto e com foco em um objetivo principal.
+- [x] Tipo do caso de uso informado.
+- [x] Atores primário e secundários identificados corretamente.
+- [x] Precondições registradas.
+- [x] Fluxo principal completo e coerente com o objetivo.
+- [x] Fluxos alternativos e de exceção definidos quando necessários.
+- [x] Pós-condições registradas.
+- [x] Requisitos não funcionais específicos registrados.
+- [x] Pontos de extensão identificados quando aplicável.
+- [x] Frequência de utilização estimada.
+
+## 16.2 Qualidade da especificação
+
+- [x] Passos escritos com linguagem simples e objetiva.
+- [x] Ações descritas com verbos no presente do indicativo.
+- [x] Alternância entre ação do ator e ação da solução está clara.
+- [x] Não há ambiguidade relevante.
+- [x] Regras de negócio e mensagens estão referenciadas quando necessário.
+
+## 16.3 Consistência e rastreabilidade
+
+- [x] Pontos de entrada e saída dos fluxos alternativos estão explícitos.
+- [x] Fluxos de exceção estão vinculados aos passos corretos da solução.
+- [x] Referências internas entre passos estão corretas.
+- [x] Interface visual está coerente com o fluxo descrito.
+- [x] Referências para visão da demanda, glossário e RNF estão atualizadas.
+
+## 16.4 Revisão final
+
+- [x] Não há contradições entre seções do artefato.
+- [x] Links internos e externos foram validados quando aplicável.
+- [x] Documento pronto para revisão por pares.
+- [x] Artefato pronto para uso em desenvolvimento e testes.
