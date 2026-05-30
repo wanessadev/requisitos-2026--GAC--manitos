@@ -1,6 +1,6 @@
 # Especificação de Requisitos Não Funcionais
 
-***LAPIS***
+ 
 
 > Documento preenchido para o **Sistema GAC — Gestão de Ativos do CCT**. Os requisitos abaixo descrevem atributos de qualidade e restrições da solução, com critérios objetivos e verificáveis, alinhados ao documento de visão, à elicitação e aos requisitos funcionais do projeto.
 
