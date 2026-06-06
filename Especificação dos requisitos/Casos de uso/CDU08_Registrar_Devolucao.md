@@ -90,7 +90,7 @@ O sistema informa se a devolução está dentro do prazo esperado. **[A2]**
 ## P4. Executar checklist
 
 ### P4.1.
-O sistema inclui o caso de uso **CDU07 - Executar Checklist de Devolução**. **[E2]**
+O sistema inclui o caso de uso **CDU09 - Executar Checklist de Devolução**. **[E2]**
 
 ## P5. Confirmar devolução
 
