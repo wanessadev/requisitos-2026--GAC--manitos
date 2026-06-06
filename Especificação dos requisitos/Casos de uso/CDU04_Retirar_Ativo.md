@@ -97,7 +97,7 @@ O sistema inclui o caso de uso **CDU05 - Validar Patrimônio e Acessórios**. **
 ## P5. Assinar termo de responsabilidade
 
 ### P5.1.
-O sistema inclui o caso de uso CDU06 - Assinar Termo de Responsabilidade. [E3]
+O sistema inclui o caso de uso CDU06 - Assinar Termo de Responsabilidade. **[E3]**
 
 ### P5.2.
 O Professor realiza o aceite digital do termo. **[E3]**
