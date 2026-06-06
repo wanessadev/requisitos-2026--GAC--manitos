@@ -91,7 +91,7 @@ O sistema verifica os campos obrigatórios. **[E1]**
 ## P4. Validar e ativar conta
 
 ### P4.1.
-O sistema inclui o caso de uso **CDU01 - Validar Dados e Ativar Conta**. **[E2]**
+O sistema inclui o caso de uso **CDU02 - Validar Dados e Ativar Conta**. **[E2]**
 
 ## P5. Armazenar dados
 
